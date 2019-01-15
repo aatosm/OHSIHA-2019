@@ -101,4 +101,16 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
     });
 });
 
+router.get('/:id/cities', (req, res) => {
+    res.send("TODO");
+});
+
+router.post('/:id/add', () => {
+    res.send("TODO");
+});
+
+router.post('/:id/remove', () => {
+    res.send("TODO");
+});
+
 module.exports = router;
