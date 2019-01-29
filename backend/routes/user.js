@@ -127,7 +127,7 @@ router.get('/:id/cities', (req, res) => {
                         City.findOne({_id: c})
                             .exec()
                             .then(r => {
-                                const cityObject = {name: r.name, country: "FI"};
+                                const cityObject = {id: r._id, name: r.name, country: "FI"};
                                 return cityObject;
                             })
                             .catch(err => console.log(err))
@@ -175,8 +175,6 @@ router.post('/:id/add', (req, res) => {
                 });
             }
             else {
-                res.send("City already exists in db");
-            
                 user.cities.push(city);
                 user.save((err, user) => {
                     if(err) console.log(err);
@@ -189,7 +187,17 @@ router.post('/:id/add', (req, res) => {
 
 
 router.post('/:id/remove', (req, res) => {
-    res.send("TODO");
+    
+    const id = req.params.id;
+    const cityName = req.body.city;
+    const country = req.body.country;
+    const cityId = req.body.id;
+
+    User.updateOne({name: id}, {$pullAll: { cities: [cityId] } }, (err, user) => {
+        //console.log(user);
+        if(err) console.log(err);
+        res.send("City "+cityName+" removed from favorites.");
+    });
 });
 
 module.exports = router;
