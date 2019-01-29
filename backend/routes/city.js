@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios'); 
 
+const City = require('../models/City');
+
 const template = [
     {
         city: "Helsinki",
@@ -37,6 +39,43 @@ router.get('/', (req, res) => {
         .catch(err => {
             console.log(err);
         });*/
+});
+
+router.get('/added', (req, res) => {
+    City.find({}).then(cities => {
+        res.send(cities);
+    });
+});
+
+router.post('/add/:name', (req, res) => {
+    const cityName = req.params.name;
+    console.log(cityName);
+    //const country = req.body.country;
+    const country = 'FI';
+
+    City.findOne({name: cityName, country: country}, (err, city) => {
+        if(err){
+            console.log(err);
+            res.send(err);
+        } 
+        if(!city){
+            const newCity = new City({
+                name: cityName,
+                country: country
+            });
+            newCity.save((err, city) => {
+                if(err){
+                    console.log(err);
+                    res.send(err); // TODO: maybe causes the "Cant set headers after sent"
+                }
+                res.json(city);
+            });
+        }
+        else {
+            res.send("City already exists in db");
+        }
+    });
+
 });
 
 module.exports = router;

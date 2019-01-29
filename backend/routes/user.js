@@ -7,6 +7,8 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 const User = require('../models/User');
+const City = require('../models/City');
+
 
 router.post('/register', function(req, res) {
 
@@ -48,6 +50,7 @@ router.post('/register', function(req, res) {
         }
     });
 });
+
 
 router.post('/login', (req, res) => {
 
@@ -94,6 +97,7 @@ router.post('/login', (req, res) => {
         });
 });
 
+
 router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
     return res.json({
         id: req.user.id,
@@ -101,15 +105,90 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
     });
 });
 
+
+// FOR TESTING
+router.get('/all', (req, res) => {
+    User.find({}).then(users => {
+        res.send(users);
+    });
+});
+
+
 router.get('/:id/cities', (req, res) => {
-    res.send("TODO");
+
+    const id = req.params.id;
+
+    User.findOne({name: id})
+        .exec()
+        .then(user => {
+            let promises = user.cities.map(c => {
+                return new Promise((resolve, reject) => {
+                    resolve(
+                        City.findOne({_id: c})
+                            .exec()
+                            .then(r => {
+                                const cityObject = {name: r.name, country: "FI"};
+                                return cityObject;
+                            })
+                            .catch(err => console.log(err))
+                    );
+                })
+            });
+            Promise.all(promises)
+            .then(result => {
+                res.send(result);
+            })
+        })
+        .catch(err => {
+            res.send(err);
+        });
 });
 
-router.post('/:id/add', () => {
-    res.send("TODO");
+
+router.post('/:id/add', (req, res) => {
+
+    const id = req.params.id;
+    const cityName = req.body.city;
+    const country = req.body.country;
+
+    User.findOne({name: id}, (err, user) => {
+        if(err) console.log(err);
+
+        City.findOne({name: cityName, country: country}, (err, city) => {
+            if(err){
+                console.log(err);
+            } 
+            if(!city){
+                const newCity = new City({
+                    name: cityName,
+                    country: country
+                });
+                newCity.save((err, city) => {
+                    if(err){
+                        console.log(err);
+                    }
+                    user.cities.push(city);
+                    user.save((err, user) => {
+                        if(err) console.log(err);
+                        res.send(user);
+                    });
+                });
+            }
+            else {
+                res.send("City already exists in db");
+            
+                user.cities.push(city);
+                user.save((err, user) => {
+                    if(err) console.log(err);
+                    res.send(user);
+                });
+            }
+        });
+    });
 });
 
-router.post('/:id/remove', () => {
+
+router.post('/:id/remove', (req, res) => {
     res.send("TODO");
 });
 
