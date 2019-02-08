@@ -2,46 +2,53 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios'); 
 
-const City = require('../models/City');
-
-const template = [
-    {
-        city: "Helsinki",
-        country: "FI"
-    },
-    {
-        city: "Tampere",
-        country: "FI"
-    }, 
-    
-    {
-        city: "Oulu",
-        country: "FI"
-    }
-];
+const Currency = require('../models/Currency');
 
 router.get('/', (req, res) => {
+
+    const template = [
+        {
+            short: "BTC",
+            full: "Bitcoin"
+        },
+        {
+            short: "RUB",
+            full: "Russian Ruble"
+        },
+        {
+            short: "USD",
+            full: "United States Dollar"
+        }
+    ];
+
+    res.send(template);
     
-    //res.send(template);
-
-    axios.get('https://api.openaq.org/v1/cities')
+    /*axios.get('http://data.fixer.io/api/symbols', {params: {access_key: "14489d7afe9f3e398691e76630e26718"}})
         .then(response => {
+            
+            function prettifyResult() {
+                let promise = new Promise((resolve, reject) => {
+                    let list = [];
+                    for(key in response.data.symbols){
+                        list.push({short: key, full: response.data.symbols[key]});
+                    }
+                    resolve(list);
+                });
+                return promise; 
+            } 
+            
+            prettifyResult().then((result, err) => {
+                if(err) console.log(err);
+                res.send(result);
+            })
 
-            const cities = response.data.results.map(response => {
-                let obj = {};
-                obj.city = response.city;
-                obj.country = response.country;
-                return obj;
-            });
-
-            res.send(cities);
         })
         .catch(err => {
             console.log(err);
-        });
+        });*/
 });
 
-router.get('/added', (req, res) => {
+/*router.get('/added', (req, res) => {
     City.find({}).then(cities => {
         res.send(cities);
     });
@@ -76,6 +83,6 @@ router.post('/add/:name', (req, res) => {
         }
     });
 
-});
+});*/
 
 module.exports = router;

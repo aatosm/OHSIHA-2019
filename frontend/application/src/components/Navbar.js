@@ -19,7 +19,7 @@ class Navbar extends Component {
         const authLinks = (
             <Container>
                 <Menu.Item header href="/">
-                    OHSIHA-2019 harkkatyö
+                    CurrencybuDDy
                 </Menu.Item>
                 <Menu.Item position="right"> Logged in as: {user.name}</Menu.Item>
                 <Menu.Item onClick={ this.onLogout.bind(this) }>

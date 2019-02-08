@@ -1,5 +1,5 @@
 export const GET_ERRORS = 'GET_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-export const GET_CITIES = 'GET_CITIES';
+export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const ADD_FAVORITES = 'ADD_FAVORITES';

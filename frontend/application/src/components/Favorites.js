@@ -4,19 +4,25 @@ import { connect } from 'react-redux';
 import { Button, List } from 'semantic-ui-react'
 import { getFavorites } from '../actions/datafetching';
 
+import ItemView from './ItemView';
+
 class Favorites extends Component {
 
     constructor() {
         super();
         this.state = {
             favorites: [],
-            selectedCity: ""
+            selectedCurrency: {}
         }
     }
 
 
-    selectCity = (e) => {
-        this.setState({selectedCity: e.target.innerText});
+    selectCurrency = (e) => {
+        const fields = e.target.innerText.split(", ");
+        const wantedObject = this.state.favorites.find(item => {
+            return item.short === fields[0];
+        })
+        this.setState({selectedCurrency: wantedObject});
     }
 
 
@@ -55,13 +61,14 @@ class Favorites extends Component {
 
     render() {
 
-        let cities = this.state.favorites.map( city => {
+        let currencies = this.state.favorites.map( currency => {
             return (
-                <List.Item key={city.name} onClick={this.selectCity} value={city.name}>
+                <List.Item key={currency.id} onClick={this.selectCurrency} value={currency.id}>
                     <List.Content>
                         <List.Header>
-                            { city.name }, {city.country}
+                            { currency.short }, { currency.full }
                         </List.Header>
+                        <div></div>
                     </List.Content>
                 </List.Item>
             );
@@ -70,7 +77,7 @@ class Favorites extends Component {
         return(
             <div>
                 <div>
-                    <h4>SELECTED: {this.state.selectedCity}</h4>
+                    <h4>SELECTED: {this.state.selectedCurrency.full}</h4>
                     <div>
                         <Button type='submit' onClick={this.show}>SHOW</Button>
                         <Button type='submit' onClick={this.remove}>REMOVE FROM FAVORITES</Button>
@@ -78,7 +85,7 @@ class Favorites extends Component {
                 </div>
                 <div>
                     <List divided relaxed>
-                        {cities}
+                        {currencies}
                     </List>
                 </div>            
             </div>

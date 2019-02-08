@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const City = require('./City');
+const Currency = require('./Currency');
 
 const Schema = mongoose.Schema;
 
@@ -12,7 +12,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    cities: [{type: Schema.Types.ObjectId, ref: 'City'}]
+    currencies: [{type: Schema.Types.ObjectId, ref: 'Currency'}]
 });
 
 const User = mongoose.model('users', UserSchema);

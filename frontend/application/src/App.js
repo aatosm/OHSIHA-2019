@@ -37,11 +37,11 @@ class App extends Component {
         <Router>
           <div style={sitePadding}>
             <Navbar />
-              <Route exact path="/" component = { Home } />
-              <div>
-                <Route exact path="/register" component = { Register } />
-                <Route exact path="/login" component = { Login } />
-              </div>
+            <Route exact path="/" component = { Home } />
+            <div>
+              <Route exact path="/register" component = { Register } />
+              <Route exact path="/login" component = { Login } />
+            </div>
           </div>
         </Router>
       </Provider>

@@ -1,76 +1,66 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button, List, Dropdown } from 'semantic-ui-react'
-import { getCities, addToFavorites } from '../actions/datafetching';
+import { withRouter } from 'react-router-dom';
+import { Button, List } from 'semantic-ui-react'
+import { getCurrencies, addToFavorites } from '../actions/datafetching';
 
-class Citylist extends Component {
+class CurrencyList extends Component {
 
     constructor() {
         super();
         this.state = {
-            cities: [],
-            selectedCity: {}
+            currencies: [],
+            selectedCurrency: {}
         }
-        this.selectCity = this.selectCity.bind(this);
+        this.selectCurrency = this.selectCurrency.bind(this);
         this.show = this.show.bind(this);
         this.addToFavorites = this.addToFavorites.bind(this);
     }
 
-    selectCity = (e) => {
-        const fields = e.target.innerText.split(',');
-        this.setState({selectedCity: {city: fields[0], country: fields[1] }});
+    selectCurrency = (e) => {
+        const fields = e.target.innerText.split(", ");
+        this.setState({selectedCurrency: {short: fields[0], full: fields[1] }});
     }
 
     show = (e) => {
         e.preventDefault();
-        console.log("SHOW");
+        // action
     }
 
     addToFavorites = (e) => {
         e.preventDefault();
-        this.props.addToFavorites(this.props.auth.user.name, this.state.selectedCity);
+        this.props.addToFavorites(this.props.auth.user.name, this.state.selectedCurrency);
     }
 
     componentDidMount() {
-        this.props.getCities();
+        this.props.getCurrencies();
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            cities: nextProps.cities.data
+            currencies: nextProps.currencies
         });
     }
 
-    render() {
-
-        let cities = this.state.cities.map( city => {
+    render() {    
+        
+        let currencies = this.state.currencies.map( currency => {
             return (
-                <List.Item key={city.city} onClick={this.selectCity} value={city.city}>
+                <List.Item key={currency.short} onClick={this.selectCurrency} value={currency}>
                     <List.Content>
                         <List.Header>
-                            { city.city },{city.country}
+                            { currency.short }, {currency.full}
                         </List.Header>
                     </List.Content>
                 </List.Item>
             );
         });
 
-        const templateCountries = ["FI", "SWE", "NOR"];
-        const temp = () => {
-            return(
-                <div>
-                    <Dropdown placeholder="Select country" selection options={templateCountries}>
-
-                    </Dropdown>
-                </div>
-            );
-        }
-
         return(
             <div>
                 <div>
-                    <h4>SELECTED: {this.state.selectedCity.city}, {this.state.selectedCity.country}</h4>
+                    <h4>SELECTED: {this.state.selectedCurrency.full}</h4>
                     <div>
                         <Button type='submit' onClick={this.show}>SHOW</Button>
                         <Button type='submit' onClick={this.addToFavorites}>ADD TO FAVORITES</Button>
@@ -81,7 +71,7 @@ class Citylist extends Component {
                 </div>
                 <div>
                     <List divided relaxed>
-                        {cities}
+                        {currencies}
                     </List>
                 </div>            
             </div>
@@ -89,22 +79,22 @@ class Citylist extends Component {
     };   
 }
 
-Citylist.propTypes = {
+CurrencyList.propTypes = {
     /*loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired*/
     auth: PropTypes.object.isRequired,
-    getCities: PropTypes.func.isRequired,
-    cities: PropTypes.object.isRequired
+    getCurrencies: PropTypes.func.isRequired,
+    currencies: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
     /*auth: state.auth,
     errors: state.errors*/
     auth: state.auth,
-    cities: state.cities
+    currencies: state.currencies
 })
 
-const mapDispatchToProps = { getCities, addToFavorites }
+const mapDispatchToProps = { getCurrencies, addToFavorites }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Citylist)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrencyList))

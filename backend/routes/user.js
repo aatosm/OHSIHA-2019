@@ -7,7 +7,7 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 const User = require('../models/User');
-const City = require('../models/City');
+const Currency = require('../models/Currency');
 
 
 router.post('/register', function(req, res) {
@@ -114,21 +114,21 @@ router.get('/all', (req, res) => {
 });
 
 
-router.get('/:id/cities', (req, res) => {
+router.get('/:id/currencies', (req, res) => {
 
     const id = req.params.id;
 
     User.findOne({name: id})
         .exec()
         .then(user => {
-            let promises = user.cities.map(c => {
+            let promises = user.currencies.map(c => {
                 return new Promise((resolve, reject) => {
                     resolve(
-                        City.findOne({_id: c})
+                        Currency.findOne({_id: c})
                             .exec()
                             .then(r => {
-                                const cityObject = {id: r._id, name: r.name, country: r.country};
-                                return cityObject;
+                                const currencyObject = {id: r._id, short: r.short, full: r.full};
+                                return currencyObject;
                             })
                             .catch(err => console.log(err))
                     );
@@ -148,37 +148,37 @@ router.get('/:id/cities', (req, res) => {
 router.post('/:id/add', (req, res) => {
 
     const id = req.params.id;
-    const cityName = req.body.city;
-    const country = req.body.country;
+    const short = req.body.short;
+    const full = req.body.full;
 
     User.findOne({name: id}, (err, user) => {
         if(err) console.log(err);
 
-        City.findOne({name: cityName, country: country}, (err, city) => {
+        Currency.findOne({short: short}, (err, currency) => {
             if(err){
                 console.log(err);
             } 
-            if(!city){
-                const newCity = new City({
-                    name: cityName,
-                    country: country
+            if(!currency){
+                const newCurrency = new Currency({
+                    short: short,
+                    full: full
                 });
-                newCity.save((err, city) => {
+                newCurrency.save((err, currency) => {
                     if(err){
                         console.log(err);
                     }
-                    user.cities.push(city);
+                    user.currencies.push(currency);
                     user.save((err, user) => {
                         if(err) console.log(err);
-                        res.send(city);
+                        res.send(currency);
                     });
                 });
             }
             else {
-                user.cities.push(city);
+                user.currencies.push(currency);
                 user.save((err, user) => {
                     if(err) console.log(err);
-                    res.send(city);
+                    res.send(currency);
                 });
             }
         });
@@ -189,14 +189,12 @@ router.post('/:id/add', (req, res) => {
 router.post('/:id/remove', (req, res) => {
     
     const id = req.params.id;
-    const cityName = req.body.city;
-    const country = req.body.country;
-    const cityId = req.body.id;
+    const short = req.body.short;
+    const currencyId = req.body.id;
 
-    User.updateOne({name: id}, {$pullAll: { cities: [cityId] } }, (err, user) => {
-        //console.log(user);
+    User.updateOne({name: id}, {$pullAll: { currencies: [currencyId] } }, (err, user) => {
         if(err) console.log(err);
-        res.send("City "+cityName+" removed from favorites.");
+        res.send("Currency "+currencyName+" removed from favorites.");
     });
 });
 

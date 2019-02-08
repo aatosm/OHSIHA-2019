@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react'
 
-import Citylist from './Citylist';
+import CurrencyList from './CurrencyList';
 import Favorites from './Favorites';
 
 class Home extends Component {
@@ -16,8 +16,8 @@ class Home extends Component {
             <div>
                 <Grid columns={2}>
                     <Grid.Column>
-                        <h3>List of cities</h3>
-                        <Citylist />
+                        <h3>List of currencies</h3>
+                        <CurrencyList />
                     </Grid.Column>
 
                     <Grid.Column>
