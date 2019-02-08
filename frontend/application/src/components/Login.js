@@ -93,4 +93,6 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { loginUser })(Login)
+const mapDispatchToProps = { loginUser }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

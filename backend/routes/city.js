@@ -22,9 +22,9 @@ const template = [
 
 router.get('/', (req, res) => {
     
-    res.send(template);
+    //res.send(template);
 
-    /*axios.get('https://api.openaq.org/v1/cities')
+    axios.get('https://api.openaq.org/v1/cities')
         .then(response => {
 
             const cities = response.data.results.map(response => {
@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
         })
         .catch(err => {
             console.log(err);
-        });*/
+        });
 });
 
 router.get('/added', (req, res) => {

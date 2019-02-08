@@ -105,4 +105,6 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps,{ registerUser })(withRouter(Register))
+const mapDispatchToProps = { registerUser }
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Register))

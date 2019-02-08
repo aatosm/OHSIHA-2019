@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react'
 
 import Citylist from './Citylist';
+import Favorites from './Favorites';
 
 class Home extends Component {
     render() {
@@ -12,8 +14,16 @@ class Home extends Component {
 
         const authenticated = (
             <div>
-                <h4>List of cities</h4>
-                <Citylist />
+                <Grid columns={2}>
+                    <Grid.Column>
+                        <h3>List of cities</h3>
+                        <Citylist />
+                    </Grid.Column>
+
+                    <Grid.Column>
+                        <Favorites />
+                    </Grid.Column>
+                </Grid>        
             </div>
         );
 

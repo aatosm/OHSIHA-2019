@@ -127,7 +127,7 @@ router.get('/:id/cities', (req, res) => {
                         City.findOne({_id: c})
                             .exec()
                             .then(r => {
-                                const cityObject = {id: r._id, name: r.name, country: "FI"};
+                                const cityObject = {id: r._id, name: r.name, country: r.country};
                                 return cityObject;
                             })
                             .catch(err => console.log(err))
@@ -170,7 +170,7 @@ router.post('/:id/add', (req, res) => {
                     user.cities.push(city);
                     user.save((err, user) => {
                         if(err) console.log(err);
-                        res.send(user);
+                        res.send(city);
                     });
                 });
             }
@@ -178,7 +178,7 @@ router.post('/:id/add', (req, res) => {
                 user.cities.push(city);
                 user.save((err, user) => {
                     if(err) console.log(err);
-                    res.send(user);
+                    res.send(city);
                 });
             }
         });
