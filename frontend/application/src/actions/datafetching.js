@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CURRENCIES, GET_FAVORITES,  ADD_FAVORITES } from './types';
+import { GET_CURRENCIES, GET_FAVORITES,  ADD_FAVORITES, REMOVE_FAVORITE } from './types';
 
 
 export const getCurrencies = () => dispatch => {
@@ -41,14 +41,14 @@ export const add = result => {
 }
 
 
-/*export const getLatestData = () => dispatch => {
-    axios.post('/api/users/'+id+'/add', {name: city.name})
-        .then(result => dispatch(add(result)));
+export const removeFromFavorites = (id, currencyId) => dispatch => {
+    axios.post('/api/users/'+id+'/remove', {currencyId: currencyId})
+        .then(result => dispatch(remove(result)));
 }
 
-export const add = result => {
+export const remove = result => {
     return {   
-        type: ADD_FAVORITES,
+        type: REMOVE_FAVORITE,
         payload: result
     }
-}*/
+}

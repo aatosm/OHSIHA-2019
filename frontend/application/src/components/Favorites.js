@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, List } from 'semantic-ui-react'
-import { getFavorites } from '../actions/datafetching';
+import { getFavorites, removeFromFavorites } from '../actions/datafetching';
 
 import ItemView from './ItemView';
 
@@ -34,7 +34,7 @@ class Favorites extends Component {
 
     remove = (e) => {
         e.preventDefault();
-        console.log("REMOVE");
+        this.props.removeFromFavorites(this.props.auth.user.name, this.state.selectedCurrency);
     }
 
 
@@ -48,6 +48,10 @@ class Favorites extends Component {
             this.setState({
                 favorites: nextProps.favorites
             });
+        }
+        else if(typeof nextProps.favorites === "string"){
+            // TODO FIX RETURN VALUE LATER, THIS IS DUMB
+            this.props.getFavorites(this.props.auth.user.name);
         }
         else {
             let newFavorites = this.state.favorites;
@@ -112,6 +116,6 @@ const mapStateToProps = (state) => ({
 })
 
 
-const mapDispatchToProps = { getFavorites }
+const mapDispatchToProps = { getFavorites, removeFromFavorites }
 
 export  default connect(mapStateToProps, mapDispatchToProps)(Favorites)

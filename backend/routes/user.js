@@ -189,12 +189,12 @@ router.post('/:id/add', (req, res) => {
 router.post('/:id/remove', (req, res) => {
     
     const id = req.params.id;
-    const short = req.body.short;
-    const currencyId = req.body.id;
+    //const short = req.body.short;
+    const currencyId = req.body.currencyId;
 
     User.updateOne({name: id}, {$pullAll: { currencies: [currencyId] } }, (err, user) => {
         if(err) console.log(err);
-        res.send("Currency "+currencyName+" removed from favorites.");
+        res.send("Currency removed from favorites.");
     });
 });
 
