@@ -7,7 +7,7 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 const User = require('../models/User');
-const Currency = require('../models/Currency');
+const City = require('../models/City');
 
 
 router.post('/register', function(req, res) {
@@ -106,29 +106,21 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
 });
 
 
-// FOR TESTING
-router.get('/all', (req, res) => {
-    User.find({}).then(users => {
-        res.send(users);
-    });
-});
-
-
-router.get('/:id/currencies', (req, res) => {
+router.get('/:id/cities', (req, res) => {
 
     const id = req.params.id;
 
     User.findOne({name: id})
         .exec()
         .then(user => {
-            let promises = user.currencies.map(c => {
+            let promises = user.cities.map(c => {
                 return new Promise((resolve, reject) => {
                     resolve(
-                        Currency.findOne({_id: c})
+                        City.findOne({_id: c})
                             .exec()
                             .then(r => {
-                                const currencyObject = {id: r._id, short: r.short, full: r.full};
-                                return currencyObject;
+                                const cityObject = {id: r._id, name: r.name, country: r.country};
+                                return cityObject;
                             })
                             .catch(err => console.log(err))
                     );
@@ -148,37 +140,37 @@ router.get('/:id/currencies', (req, res) => {
 router.post('/:id/add', (req, res) => {
 
     const id = req.params.id;
-    const short = req.body.short;
-    const full = req.body.full;
+    const name = req.body.name;
+    const country = req.body.country;
 
     User.findOne({name: id}, (err, user) => {
         if(err) console.log(err);
 
-        Currency.findOne({short: short}, (err, currency) => {
+        City.findOne({name: name}, (err, city) => {
             if(err){
                 console.log(err);
             } 
-            if(!currency){
-                const newCurrency = new Currency({
-                    short: short,
-                    full: full
+            if(!city){
+                const newCity = new City({
+                    name: name,
+                    country: country
                 });
-                newCurrency.save((err, currency) => {
+                newCity.save((err, city) => {
                     if(err){
                         console.log(err);
                     }
-                    user.currencies.push(currency);
+                    user.cities.push(city);
                     user.save((err, user) => {
                         if(err) console.log(err);
-                        res.send(currency);
+                        res.send(city);
                     });
                 });
             }
             else {
-                user.currencies.push(currency);
+                user.cities.push(city);
                 user.save((err, user) => {
                     if(err) console.log(err);
-                    res.send(currency);
+                    res.send(city);
                 });
             }
         });
@@ -189,12 +181,11 @@ router.post('/:id/add', (req, res) => {
 router.post('/:id/remove', (req, res) => {
     
     const id = req.params.id;
-    //const short = req.body.short;
-    const currencyId = req.body.currencyId;
+    const cityId = req.body.cityId;
 
-    User.updateOne({name: id}, {$pullAll: { currencies: [currencyId] } }, (err, user) => {
+    User.updateOne({name: id}, {$pullAll: { cities: [cityId] } }, (err, user) => {
         if(err) console.log(err);
-        res.send("Currency removed from favorites.");
+        res.send("City removed from favorites.");
     });
 });
 

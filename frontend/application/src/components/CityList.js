@@ -3,24 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button, List } from 'semantic-ui-react'
-import { getCurrencies, addToFavorites } from '../actions/datafetching';
+import { getCities, addToFavorites } from '../actions/datafetching';
 
-class CurrencyList extends Component {
+class CityList extends Component {
 
     constructor() {
         super();
         this.state = {
-            currencies: [],
-            selectedCurrency: {}
+            cities: [],
+            selectedCity: {}
         }
-        this.selectCurrency = this.selectCurrency.bind(this);
+        this.selectCity = this.selectCity.bind(this);
         this.show = this.show.bind(this);
         this.addToFavorites = this.addToFavorites.bind(this);
     }
 
-    selectCurrency = (e) => {
+    selectCity = (e) => {
         const fields = e.target.innerText.split(", ");
-        this.setState({selectedCurrency: {short: fields[0], full: fields[1] }});
+        this.setState({selectedCity: {name: fields[0], country: fields[1] }});
     }
 
     show = (e) => {
@@ -30,27 +30,27 @@ class CurrencyList extends Component {
 
     addToFavorites = (e) => {
         e.preventDefault();
-        this.props.addToFavorites(this.props.auth.user.name, this.state.selectedCurrency);
+        this.props.addToFavorites(this.props.auth.user.name, this.state.selectedCity);
     }
 
     componentDidMount() {
-        this.props.getCurrencies();
+        this.props.getCities();
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            currencies: nextProps.currencies
+            cities: nextProps.cities
         });
     }
 
-    render() {    
+    render() { 
         
-        let currencies = this.state.currencies.map( currency => {
+        let cities = this.state.cities.map( city => {
             return (
-                <List.Item key={currency.short} onClick={this.selectCurrency} value={currency}>
+                <List.Item key={city.name} onClick={this.selectCity} value={city}>
                     <List.Content>
                         <List.Header>
-                            { currency.short }, {currency.full}
+                            { city.name }, { city.country }
                         </List.Header>
                     </List.Content>
                 </List.Item>
@@ -60,18 +60,18 @@ class CurrencyList extends Component {
         return(
             <div>
                 <div>
-                    <h4>SELECTED: {this.state.selectedCurrency.full}</h4>
+                    <h4>SELECTED: {this.state.selectedCity.name}</h4>
                     <div>
-                        <Button type='submit' onClick={this.show}>SHOW</Button>
-                        <Button type='submit' onClick={this.addToFavorites}>ADD TO FAVORITES</Button>
+                        <Button type='submit' basic color='primary' onClick={this.show}>SHOW</Button>
+                        <Button type='submit' basic color='green' onClick={this.addToFavorites}>ADD TO FAVORITES</Button>
                     </div>
                 </div>
                 <div>
 
                 </div>
                 <div>
-                    <List divided relaxed>
-                        {currencies}
+                    <List divided relaxed style={{overflow: 'auto', maxHeight: 600 }}>
+                        {cities}
                     </List>
                 </div>            
             </div>
@@ -79,22 +79,22 @@ class CurrencyList extends Component {
     };   
 }
 
-CurrencyList.propTypes = {
+CityList.propTypes = {
     /*loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired*/
     auth: PropTypes.object.isRequired,
-    getCurrencies: PropTypes.func.isRequired,
-    currencies: PropTypes.object.isRequired
+    getCities: PropTypes.func.isRequired,
+    cities: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
     /*auth: state.auth,
     errors: state.errors*/
     auth: state.auth,
-    currencies: state.currencies
+    cities: state.cities
 })
 
-const mapDispatchToProps = { getCurrencies, addToFavorites }
+const mapDispatchToProps = { getCities, addToFavorites }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrencyList))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CityList))

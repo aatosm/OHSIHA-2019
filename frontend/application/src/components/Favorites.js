@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Button, List } from 'semantic-ui-react'
 import { getFavorites, removeFromFavorites } from '../actions/datafetching';
-
-import ItemView from './ItemView';
 
 class Favorites extends Component {
 
@@ -12,29 +11,38 @@ class Favorites extends Component {
         super();
         this.state = {
             favorites: [],
-            selectedCurrency: {}
+            selectedCity: {name: ""} // FIX
         }
+        this.setStateFinished = this.setStateFinished.bind(this);
     }
+    
 
-
-    selectCurrency = (e) => {
+    selectCity = (e) => {
+        
         const fields = e.target.innerText.split(", ");
         const wantedObject = this.state.favorites.find(item => {
-            return item.short === fields[0];
+            return item.name === fields[0];
         })
-        this.setState({selectedCurrency: wantedObject});
+        this.setState({selectedCity: wantedObject}, () => {
+            this.setStateFinished();
+        });
+    }
+
+    setStateFinished = () => {
+        //this.props.getLatest(this.state.selectedCurrency.short);
+        
     }
 
 
     show = (e) => {
         e.preventDefault();
-        console.log("SHOW");
+        
     }
 
 
     remove = (e) => {
         e.preventDefault();
-        this.props.removeFromFavorites(this.props.auth.user.name, this.state.selectedCurrency);
+        this.props.removeFromFavorites(this.props.auth.user.name, this.state.selectedCity);
     }
 
 
@@ -44,36 +52,42 @@ class Favorites extends Component {
 
 
     componentWillReceiveProps(nextProps) {
-        if(Array.isArray(nextProps.favorites)) {
-            this.setState({
-                favorites: nextProps.favorites
-            });
-        }
-        else if(typeof nextProps.favorites === "string"){
-            // TODO FIX RETURN VALUE LATER, THIS IS DUMB
-            this.props.getFavorites(this.props.auth.user.name);
-        }
-        else {
-            let newFavorites = this.state.favorites;
-            newFavorites.push(nextProps.favorites);
-            this.setState({
-                favorites: newFavorites
-            });
+        if(nextProps.favorites){
+            if(Array.isArray(nextProps.favorites)) {
+                this.setState({
+                    favorites: nextProps.favorites
+                });
+            }
+            else if(typeof nextProps.favorites === "string"){
+                // TODO FIX RETURN VALUE LATER, THIS IS DUMB
+                this.props.getFavorites(this.props.auth.user.name);
+            }
+            else {
+                let newFavorites = this.state.favorites;
+                newFavorites.push(nextProps.favorites);
+                this.setState({
+                    favorites: newFavorites
+                });
+            }
         }
     }
 
 
     render() {
 
-        let currencies = this.state.favorites.map( currency => {
+        let cities = this.state.favorites.map( city => {
             return (
-                <List.Item key={currency.id} onClick={this.selectCurrency} value={currency.id}>
-                    <List.Content>
-                        <List.Header>
-                            { currency.short }, { currency.full }
-                        </List.Header>
-                        <div></div>
-                    </List.Content>
+                <List.Item key={city.id} onClick={this.selectCity} value={city.id}>
+                    
+                        <List.Content>
+                            <List.Header>
+                                { city.name }, { city.country }
+                            </List.Header>
+                            <div>
+                                
+                            </div>
+                        </List.Content>
+                    
                 </List.Item>
             );
         });
@@ -81,15 +95,15 @@ class Favorites extends Component {
         return(
             <div>
                 <div>
-                    <h4>SELECTED: {this.state.selectedCurrency.full}</h4>
+                    <h4>SELECTED: {this.state.selectedCity.name}</h4>
                     <div>
-                        <Button type='submit' onClick={this.show}>SHOW</Button>
-                        <Button type='submit' onClick={this.remove}>REMOVE FROM FAVORITES</Button>
+                        <Button basic color='primary' href={`/view/${this.state.selectedCity.name}`}>SHOW</Button>
+                        <Button basic color='red' type='submit' onClick={this.remove}>REMOVE FROM FAVORITES</Button>
                     </div>
                 </div>
                 <div>
-                    <List divided relaxed>
-                        {currencies}
+                    <List divided relaxed style={{overflow: 'auto', maxHeight: 600 }}>
+                        {cities}
                     </List>
                 </div>            
             </div>
@@ -116,6 +130,6 @@ const mapStateToProps = (state) => ({
 })
 
 
-const mapDispatchToProps = { getFavorites, removeFromFavorites }
+const mapDispatchToProps = { getFavorites, removeFromFavorites}
 
-export  default connect(mapStateToProps, mapDispatchToProps)(Favorites)
+export  default connect(mapStateToProps, mapDispatchToProps)(withRouter(Favorites))

@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import errorReducer from './errorReducer';
 import authReducer from './authReducer';
-import currencyReducer from './currencyReducer';
+import cityReducer from './cityReducer';
 import favoritesReducer from './favoritesReducer';
+import valueReducer from './valueReducer';
 
 export default combineReducers({
    errors: errorReducer,
    auth: authReducer,
-   currencies: currencyReducer,
-   favorites: favoritesReducer
+   cities: cityReducer,
+   favorites: favoritesReducer,
+   values: valueReducer
 });

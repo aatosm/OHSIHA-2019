@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const CurrencySchema = new Schema({
-    short: {
+const CitySchema = new Schema({
+    name: {
         type: String,
         //required: true  CHECK THESE LATER!!!
     },
-    full: {
+    country: {
         type: String,
         //required: true  CHECK THESE LATER!!!
     },
 });
 
-const Currency = mongoose.model('currencies', CurrencySchema);
+const City = mongoose.model('cities', CitySchema);
 
-module.exports = Currency;
+module.exports = City;

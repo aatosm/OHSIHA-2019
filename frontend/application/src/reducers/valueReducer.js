@@ -1,10 +1,10 @@
-import { GET_CURRENCIES } from '../actions/types';
+import { CURRENT_DATA } from '../actions/types';
 
 const initialState = {};
 
 export default function(state = initialState, action ) {
     switch(action.type) {
-        case GET_CURRENCIES:
+        case CURRENT_DATA:
             return action.payload.data;
         default: 
             return state;

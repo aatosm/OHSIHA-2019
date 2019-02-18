@@ -19,7 +19,7 @@ class Navbar extends Component {
         const authLinks = (
             <Container>
                 <Menu.Item header href="/">
-                    CurrencybuDDy
+                    WeatherBUDDY
                 </Menu.Item>
                 <Menu.Item position="right"> Logged in as: {user.name}</Menu.Item>
                 <Menu.Item onClick={ this.onLogout.bind(this) }>
@@ -31,7 +31,7 @@ class Navbar extends Component {
         const guestLinks = (
             <Container>
                 <Menu.Item href="/" header>
-                    OHSIHA-2019 harkkatyö
+                    WeatherBUDDY
                 </Menu.Item>
                 <Menu.Item href="/register" position="right">Register</Menu.Item>
                 <Menu.Item href="/login">Login</Menu.Item>

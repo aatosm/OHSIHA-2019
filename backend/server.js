@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 const users = require('./routes/user');
-const currency = require('./routes/currency');
+const cities = require('./routes/city');
 
 
 mongoose.Promise = global.Promise;
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api/users', users);
-app.use('/api/currencies', currency);
+app.use('/api/cities', cities);
 
 app.listen(8000, () => {
     console.log("Server running on port 8000")
