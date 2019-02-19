@@ -1804,10 +1804,6 @@
       "country": "Nepal"
     },
     {
-      "name": "Ürümqi",
-      "country": "China"
-    },
-    {
       "name": "Norilsk",
       "country": "Russia"
     },
@@ -2288,10 +2284,6 @@
       "country": "Australia"
     },
     {
-      "name": "Hagåtña",
-      "country": "United States"
-    },
-    {
       "name": "Dededo",
       "country": "United States"
     },
@@ -2404,10 +2396,6 @@
       "country": "Fiji"
     },
     {
-      "name": "Nukuʻalofa",
-      "country": "Tonga"
-    },
-    {
       "name": "St. Louis",
       "country": "United States"
     },
@@ -2464,7 +2452,7 @@
       "country": "Brazil"
     },
     {
-      "name": "Horta (Azores)",
+      "name": "Horta",
       "country": "Portugal"
     },
     {
@@ -2480,7 +2468,7 @@
       "country": "Spain"
     },
     {
-      "name": "Cork (city)",
+      "name": "Cork",
       "country": "Ireland"
     },
     {
@@ -2492,7 +2480,7 @@
       "country": "Andorra"
     },
     {
-      "name": "Luxembourg (city)",
+      "name": "Luxembourg",
       "country": "Luxembourg"
     },
     {
@@ -2504,7 +2492,7 @@
       "country": ""
     },
     {
-      "name": "Split (city)",
+      "name": "Split",
       "country": "Croatia"
     },
     {
@@ -2520,10 +2508,6 @@
       "country": "Turkey"
     },
     {
-      "name": "Chişinău",
-      "country": "Moldova"
-    },
-    {
       "name": "Kiev",
       "country": "Ukraine"
     },
@@ -2532,7 +2516,7 @@
       "country": "Tanzania"
     },
     {
-      "name": "Djibouti (city)",
+      "name": "Djibouti",
       "country": "Djibouti"
     },
     {
@@ -2568,7 +2552,7 @@
       "country": "India"
     },
     {
-      "name": "Phuket (city)",
+      "name": "Phuket",
       "country": "Thailand"
     },
     {
@@ -2588,7 +2572,7 @@
       "country": "China"
     },
     {
-      "name": "Yogyakarta (city)",
+      "name": "Yogyakarta",
       "country": "Indonesia"
     },
     {
