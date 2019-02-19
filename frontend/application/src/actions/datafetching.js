@@ -3,7 +3,8 @@ import { GET_CITIES,
          GET_FAVORITES,  
          ADD_FAVORITES, 
          REMOVE_FAVORITE, 
-         CURRENT_DATA } from './types';
+         CURRENT_DATA,
+         FORECAST_DATA } from './types';
 
 
 export const getCities = () => dispatch => {
@@ -69,3 +70,17 @@ export const setCurrent = result => {
         payload: result
     }
 }
+
+
+export const getForecast = (city) => dispatch => {
+    axios.get('/api/cities/'+city+'/forecast')
+    .then(result => dispatch(setForecast(result)));
+}
+
+export const setForecast = result => {
+    return {   
+        type: FORECAST_DATA,
+        payload: result
+    }
+}
+

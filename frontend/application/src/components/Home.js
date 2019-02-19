@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react'
+import { Grid, Segment } from 'semantic-ui-react'
 
 import CityList from './CityList';
 import Favorites from './Favorites';
@@ -14,16 +14,30 @@ class Home extends Component {
 
         const authenticated = (
             <div>
-                <Grid columns={2}>
-                    <Grid.Column>
-                        <h3>List of cities</h3>
-                        <CityList />
-                    </Grid.Column>
+                <Grid>
+                    <Grid.Row columns={1}>
+                        <Grid.Column>
+                            <Segment>
+                                <h4>Instructions:</h4>
+                                <p>On the left there is a list of over 600 biggest cities in the world.</p>
+                                <p>You can select city from the list and either show weather data about the city</p>
+                                <p>or add the city to your favorites.</p>
+                                <p>Favorites are listed on the right side.</p>
+                            </Segment>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row columns={2}>
+                        <Grid.Column>
+                            <h3>List of cities</h3>
+                            <CityList />
+                        </Grid.Column>
 
-                    <Grid.Column>
-                        <h3>My favorites</h3>
-                        <Favorites />
-                    </Grid.Column>
+                        <Grid.Column>
+                            <h3>My favorites</h3>
+                            <Favorites />
+                        </Grid.Column>
+                    </Grid.Row>
+                    
                 </Grid>        
             </div>
         );

@@ -49,5 +49,19 @@ router.get('/:city/current', (req, res) => {
         })
 });
 
+router.get('/:city/forecast', (req, res) => {
+    
+    const city = req.params.city;
+    const appid = '6e2a8a35748b5821d563d4bbc4c2f623'
+    axios.get('http://api.openweathermap.org/data/2.5/forecast',
+                {params: {q: city, appid: appid, units: "metric"}})
+        .then(response => {
+            res.send(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+});
+
 
 module.exports = router;

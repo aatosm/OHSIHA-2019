@@ -40,7 +40,7 @@ class Navbar extends Component {
         
         return(
             <div>
-                <Menu size='large' fixed='top' inverted>
+                <Menu size='huge' fixed='top' inverted>
                     { isAuthenticated ? authLinks : guestLinks }
                 </Menu>
             </div>         

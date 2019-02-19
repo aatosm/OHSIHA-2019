@@ -2,28 +2,83 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Chart } from "react-charts";
-import {  } from '../actions/datafetching';
+import { getForecast  } from '../actions/datafetching';
 
 class DataView extends Component {
 
     constructor() {
         super();
         this.state = {
-            city: null
+            city: null,
+            tempData: [],
+            rainData: []
+
         }
     }
 
     componentDidMount(){
-        
+        console.log(this.props.city);  
+        this.props.getForecast(this.props.city)
     }
 
     componentWillReceiveProps(nextProps){
-        
+        console.log(nextProps.forecast);
+        this.setState({
+            tempData: nextProps.forecast.list.map(item => {
+                return([new Date((item.dt*1000)), item.main.temp]);
+            }),
+            rainData: nextProps.forecast.list.map(item => {
+                return([new Date((item.dt*1000)), (item.rain["3h"] ? item.rain["3h"] : 0)]);
+            })
+        });
+
     }
 
     render() {
+        
+        const loader = (
+            <div>
+                <p>Loading...</p>
+            </div>
+        );
+        
+        let tempChart;
+        if(this.state.tempData.length === 0){
+            tempChart = loader;
+        }
+        else {
+          tempChart = (
+            // A react-chart hyper-responsively and continuusly fills the available
+            // space of its parent element automatically
+            <div
+              style={{
+                width: "400px",
+                height: "300px",
+                color: "red"
+              }}
+            >
+              <Chart
+                data={[
+                  {
+                    label: "Temperature",
+                    data: this.state.tempData
+                  }
+                ]}
+                axes={[
+                  { primary: true, type: "time", position: "bottom" },
+                  { type: "linear", position: "left" }
+                ]}
+              />
+            </div>
+          );
+        }
 
-        const lineChart = (
+        let rainChart;
+        if(this.state.rainData.length === 0){
+            rainChart = loader;
+        }
+        else {
+          rainChart = (
             // A react-chart hyper-responsively and continuusly fills the available
             // space of its parent element automatically
             <div
@@ -35,22 +90,30 @@ class DataView extends Component {
               <Chart
                 data={[
                   {
-                    label: "Series 1",
-                    data: [[0.25, 4.75], [1, 2], [2, 4], [3, 2], [4, 7]]
+                    label: "Rain",
+                    data: this.state.rainData
                   }
                 ]}
                 axes={[
-                  { primary: true, type: "linear", position: "bottom" },
+                  { primary: true, type: "time", position: "bottom" },
                   { type: "linear", position: "left" }
                 ]}
               />
             </div>
           );
+        }
 
         return(
             <div>
-                <h3>5-day forecast</h3>
-                {lineChart}      
+                <h3>Forecast for the next 5 days</h3>
+                <div>
+                    <h4>Temperature (&#8451;)</h4>
+                    {tempChart}
+                </div>
+                <div>
+                    <h4>Rain (millimeters)</h4>
+                    {rainChart}
+                </div> 
             </div>
         );
     };   
@@ -69,10 +132,11 @@ const mapStateToProps = (state) => ({
     /*auth: state.auth,
     errors: state.errors*/
     auth: state.auth,
-    values: state.values
+    values: state.values,
+    forecast: state.forecast
 })
 
 
-const mapDispatchToProps = {  }
+const mapDispatchToProps = { getForecast }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataView)

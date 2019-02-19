@@ -62,7 +62,7 @@ class CityList extends Component {
                 <div>
                     <h4>SELECTED: {this.state.selectedCity.name}</h4>
                     <div>
-                        <Button type='submit' basic color='primary' onClick={this.show}>SHOW</Button>
+                        <Button basic color='primary' href={`/view/${this.state.selectedCity.name}`}>SHOW</Button>
                         <Button type='submit' basic color='green' onClick={this.addToFavorites}>ADD TO FAVORITES</Button>
                     </div>
                 </div>

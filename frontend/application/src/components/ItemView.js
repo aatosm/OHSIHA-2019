@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react'
 import { getCurrent } from '../actions/datafetching';
+import { Grid } from 'semantic-ui-react'
 
 import DataView from './DataView';
 
@@ -58,11 +59,13 @@ class ItemView extends Component {
         const notReceived = (<div></div>);
 
         return(
-            <div>
-                <h2>{ this.state.city }</h2>    
-                {this.state.propsReceived ? received : notReceived}  
-                <Button basic color='red' href='/'>Back</Button>
-            </div>
+            <Grid columns={1}>
+                <Grid.Column>
+                    <h1>{ this.state.city }</h1>    
+                    {this.state.propsReceived ? received : notReceived}  
+                    <Button basic color='red' href='/'>Back</Button>
+                </Grid.Column>
+            </Grid>
         );
     };   
 }
