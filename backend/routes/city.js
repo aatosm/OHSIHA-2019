@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios'); 
 
-const City = require('../models/City');
+const config = require('../config.js');
 
 // https://github.com/mahemoff/geodata/blob/master/cities_with_countries.txt
 const citylist = require('../resources/citylist.json')
@@ -38,9 +38,8 @@ router.get('/', (req, res) => {
 router.get('/:city/current', (req, res) => {
     
     const city = req.params.city;
-    const appid = '6e2a8a35748b5821d563d4bbc4c2f623'
     axios.get('http://api.openweathermap.org/data/2.5/weather',
-                {params: {q: city, appid: appid, units: "metric"}})
+                {params: {q: city, appid: config.apiKey, units: "metric"}})
         .then(response => {
             res.send(response.data);
         })
@@ -52,9 +51,8 @@ router.get('/:city/current', (req, res) => {
 router.get('/:city/forecast', (req, res) => {
     
     const city = req.params.city;
-    const appid = '6e2a8a35748b5821d563d4bbc4c2f623'
     axios.get('http://api.openweathermap.org/data/2.5/forecast',
-                {params: {q: city, appid: appid, units: "metric"}})
+                {params: {q: city, appid: config.apiKey, units: "metric"}})
         .then(response => {
             res.send(response.data);
         })

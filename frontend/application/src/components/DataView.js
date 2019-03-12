@@ -28,7 +28,15 @@ class DataView extends Component {
                 return([new Date((item.dt*1000)), item.main.temp]);
             }),
             rainData: nextProps.forecast.list.map(item => {
-                return([new Date((item.dt*1000)), (item.rain["3h"] ? item.rain["3h"] : 0)]);
+                if(!item.hasOwnProperty('rain')){
+                    return([new Date(item.dt*1000), 0])
+                }
+                else if(!item.rain.hasOwnProperty('3h')) {
+                    return([new Date(item.dt*1000), 0])
+                }
+                else {
+                    return([new Date(item.dt*1000), item.rain['3h']])
+                }
             })
         });
 

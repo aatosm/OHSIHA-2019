@@ -45,7 +45,7 @@ class Home extends Component {
         const unauthenticated = (
             <div>
                 <h1>Welcome</h1>
-                <h3>Login to see some content!</h3>
+                <h3>Register and login to see some content!</h3>
             </div>   
         );
 
