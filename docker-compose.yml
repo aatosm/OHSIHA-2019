@@ -1,0 +1,25 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context:
+        ./frontend/application
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/application/:/frontend
+      - /frontend/node_modules
+    links:
+      - backend
+  backend:
+    build: ./backend
+    expose:
+      - 8000
+    ports: 
+      - 8000:8000
+    volumes:
+      - ./backend/:/src/app/backend
+      - backend/node_modules
+

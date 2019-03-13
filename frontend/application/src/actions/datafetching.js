@@ -6,6 +6,8 @@ import { GET_CITIES,
          CURRENT_DATA,
          FORECAST_DATA } from './types';
 
+    const host = 'http://0.0.0.0:8000'
+
 
 export const getCities = () => dispatch => {
     axios.get('/api/cities')
