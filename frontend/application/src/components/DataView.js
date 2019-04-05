@@ -9,20 +9,16 @@ class DataView extends Component {
     constructor() {
         super();
         this.state = {
-            city: null,
             tempData: [],
             rainData: []
-
         }
     }
 
-    componentDidMount(){
-        console.log(this.props.city);  
+    componentDidMount(){ 
         this.props.getForecast(this.props.city)
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps.forecast);
         this.setState({
             tempData: nextProps.forecast.list.map(item => {
                 return([new Date((item.dt*1000)), item.main.temp]);
@@ -129,16 +125,11 @@ class DataView extends Component {
 
 
 DataView.propTypes = {
-    /*loginUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired*/
     auth: PropTypes.object.isRequired
 }
 
 
 const mapStateToProps = (state) => ({
-    /*auth: state.auth,
-    errors: state.errors*/
     auth: state.auth,
     values: state.values,
     forecast: state.forecast

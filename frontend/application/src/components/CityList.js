@@ -34,10 +34,16 @@ class CityList extends Component {
     }
 
     componentDidMount() {
+        if(!this.props.auth.isAuthenticated) {
+            this.props.history.push('/');
+        }
         this.props.getCities();
     }
 
     componentWillReceiveProps(nextProps) {
+        if(!this.props.auth.isAuthenticated) {
+            this.props.history.push('/');
+        }
         this.setState({
             cities: nextProps.cities
         });
@@ -80,17 +86,12 @@ class CityList extends Component {
 }
 
 CityList.propTypes = {
-    /*loginUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired*/
     auth: PropTypes.object.isRequired,
     getCities: PropTypes.func.isRequired,
     cities: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    /*auth: state.auth,
-    errors: state.errors*/
     auth: state.auth,
     cities: state.cities
 })

@@ -13,7 +13,6 @@ class Favorites extends Component {
             favorites: [],
             selectedCity: {name: ""} // FIX
         }
-        this.setStateFinished = this.setStateFinished.bind(this);
     }
     
 
@@ -23,20 +22,7 @@ class Favorites extends Component {
         const wantedObject = this.state.favorites.find(item => {
             return item.name === fields[0];
         })
-        this.setState({selectedCity: wantedObject}, () => {
-            this.setStateFinished();
-        });
-    }
-
-    setStateFinished = () => {
-        //this.props.getLatest(this.state.selectedCurrency.short);
-        
-    }
-
-
-    show = (e) => {
-        e.preventDefault();
-        
+        this.setState({selectedCity: wantedObject});
     }
 
 
@@ -83,11 +69,7 @@ class Favorites extends Component {
                             <List.Header>
                                 { city.name }, { city.country }
                             </List.Header>
-                            <div>
-                                
-                            </div>
-                        </List.Content>
-                    
+                        </List.Content>     
                 </List.Item>
             );
         });
@@ -113,9 +95,6 @@ class Favorites extends Component {
 
 
 Favorites.propTypes = {
-    /*loginUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired*/
     auth: PropTypes.object.isRequired,
     getFavorites: PropTypes.func.isRequired,
     favorites: PropTypes.object.isRequired
@@ -123,8 +102,6 @@ Favorites.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-    /*auth: state.auth,
-    errors: state.errors*/
     auth: state.auth,
     favorites: state.favorites
 })

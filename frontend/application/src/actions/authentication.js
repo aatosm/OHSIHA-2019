@@ -3,7 +3,7 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-const host = 'http://0.0.0.0:8000'
+//const host = 'http://0.0.0.0:8000'
 
 export const registerUser = (user, history) => dispatch => {
     axios.post('/api/users/register', user)

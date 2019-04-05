@@ -24,6 +24,9 @@ class ItemView extends Component {
     }
 
     componentDidMount(){
+        if(!this.props.auth.isAuthenticated) {
+            this.props.history.push('/');
+        }
         this.setState({
             city: this.props.match.params.id
         });
@@ -31,6 +34,9 @@ class ItemView extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+        if(!this.props.auth.isAuthenticated) {
+            this.props.history.push('/');
+        }
         console.log(nextProps.values);
         this.setState({
             currentData: {

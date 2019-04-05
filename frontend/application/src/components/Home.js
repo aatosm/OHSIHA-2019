@@ -10,7 +10,7 @@ import Favorites from './Favorites';
 class Home extends Component {
     render() {
 
-        const {isAuthenticated, user} = this.props.auth;
+        const {isAuthenticated} = this.props.auth;
 
         const authenticated = (
             <div>
