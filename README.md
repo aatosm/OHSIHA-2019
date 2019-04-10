@@ -2,10 +2,10 @@
 
 https://ohsiha.github.io/2019/
 
-[ Linkki Heroku-sovellukseen, tulossa myöhemmin ]
+Harjoitustyö julkaistuna Herokussa (free-tier): https://weatherbuddyproject.herokuapp.com/
 
 # Yleistä
-Ohjelmassa visualisoidaan säädataa lähteestä openweathermap. Ohjelmassa täytyy rekisteröityä ja kirjautua nähdäkseen datasisältöä. Käyttäjällä on mahdollisuus lisätä kaupunkeja omaan suosikit-listaansa. Kaupungeista nähdään nykyiset säätiedot, sekä viiden päivän sääennuste.
+Ohjelmassa visualisoidaan säädataa lähteestä openweathermap. Ohjelmassa täytyy rekisteröityä ja kirjautua nähdäkseen datasisältöä. Käyttäjällä on mahdollisuus lisätä kaupunkeja omaan suosikit-listaansa. Kaupungeista nähdään nykyiset säätiedot, sekä visualisaatio viiden päivän sääennusteesta.
 
 # Ajaminen lokaalisti
 - tarvitsee olla node.js asennettuna
