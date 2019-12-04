@@ -1,11 +1,13 @@
-FROM node:8.15-alpine
+FROM node:10-alpine
 
 WORKDIR /backend
 
-COPY package*.json /backend
+COPY package*.json /backend/
 
 RUN npm install
 
 COPY . /backend/
 
-CMD ["node", "server.js"]
+EXPOSE 80
+
+CMD ["npm", "run", "start"]

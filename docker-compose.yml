@@ -3,21 +3,17 @@ services:
   frontend:
     build:
       context:
-        ./frontend/application
-    expose:
-      - 3000
+        ./frontend
     ports:
       - 3000:3000
     volumes:
-      - ./frontend/application/:/frontend
+      - ./frontend/:/frontend
       - /frontend/node_modules
     links:
       - backend
   backend:
     build: ./backend
-    expose:
-      - 8000
-    ports: 
+    ports:
       - 8000:8000
     volumes:
       - ./backend/:/src/app/backend

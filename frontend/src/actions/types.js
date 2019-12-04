@@ -1,0 +1,9 @@
+export const GET_ERRORS = 'GET_ERRORS';
+export const NETWORK_ERROR = 'NETWORK_ERROR';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const GET_CITIES = 'GET_CITIES';
+export const GET_FAVORITES = 'GET_FAVORITES';
+export const ADD_FAVORITES = 'ADD_FAVORITES';
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const CURRENT_DATA = 'CURRENT_DATA';
+export const FORECAST_DATA = 'FORECAST_DATA';
