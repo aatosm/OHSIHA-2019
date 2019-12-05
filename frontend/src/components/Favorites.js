@@ -74,7 +74,7 @@ class Favorites extends Component {
         <div>
           <h4>SELECTED: {this.state.selectedCity.name}</h4>
           <div>
-            <Button basic color='primary' href={`/view/${this.state.selectedCity.name}`}>SHOW</Button>
+            <Button basic color='blue' href={`/view/${this.state.selectedCity.name}`}>SHOW</Button>
             <Button basic color='red' type='submit' onClick={this.remove}>REMOVE FROM FAVORITES</Button>
           </div>
         </div>

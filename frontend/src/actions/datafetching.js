@@ -6,11 +6,8 @@ import {GET_CITIES,
   CURRENT_DATA,
   FORECAST_DATA} from './types';
 
-// const host = 'http://0.0.0.0:8000'
-
 
 export const getCities = () => (dispatch) => {
-  // console.log('getCities');
   axios.get('/api/cities')
     .then((result) => dispatch(setCities(result)));
 };
@@ -24,7 +21,6 @@ export const setCities = (result) => {
 
 
 export const getFavorites = (id) => (dispatch) => {
-  // console.log('getFavorites ', id);
   axios.get('/api/users/'+id+'/cities')
     .then((result) => dispatch(setFavorites(result)));
 };

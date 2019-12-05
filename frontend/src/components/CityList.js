@@ -46,7 +46,7 @@ class CityList extends Component {
   render() {
     const cities = this.state.cities.map( (city) => {
       return (
-        <List.Item key={city.name} onClick={this.selectCity} value={city}>
+        <List.Item key={city.name} onClick={this.selectCity} value={city.id}>
           <List.Content>
             <List.Header>
               { city.name }, { city.country }
@@ -61,7 +61,7 @@ class CityList extends Component {
         <div>
           <h4>SELECTED: {this.state.selectedCity.name}</h4>
           <div>
-            <Button basic color='primary' href={`/view/${this.state.selectedCity.name}`}>SHOW</Button>
+            <Button basic color='blue' href={`/view/${this.state.selectedCity.name}`}>SHOW</Button>
             <Button type='submit' basic color='green' onClick={this.addToFavorites}>ADD TO FAVORITES</Button>
           </div>
         </div>
