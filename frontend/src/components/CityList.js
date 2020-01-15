@@ -27,24 +27,14 @@ class CityList extends Component {
     this.props.addToFavorites(this.props.auth.user.name, this.state.selectedCity);
   }
 
+
   componentDidMount() {
-    if (!this.props.auth.isAuthenticated) {
-      this.props.history.push('/');
-    }
     this.props.getCities();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.auth.isAuthenticated) {
-      this.props.history.push('/');
-    }
-    this.setState({
-      cities: nextProps.cities
-    });
-  }
 
   render() {
-    const cities = this.state.cities.map( (city) => {
+    const cities = this.props.cities.map( (city) => {
       return (
         <List.Item key={city.name} onClick={this.selectCity} value={city.id}>
           <List.Content>

@@ -2,23 +2,16 @@
 
 https://ohsiha.github.io/2019/
 
-Harjoitustyö julkaistuna Herokussa (free-tier): https://weatherbuddyproject.herokuapp.com/
-
 # Yleistä
 Ohjelmassa visualisoidaan säädataa lähteestä openweathermap. Ohjelmassa täytyy rekisteröityä ja kirjautua nähdäkseen datasisältöä. Käyttäjällä on mahdollisuus lisätä kaupunkeja omaan suosikit-listaansa. Kaupungeista nähdään nykyiset säätiedot, sekä visualisaatio viiden päivän sääennusteesta.
 
-# Ajaminen lokaalisti
-- tarvitsee olla node.js asennettuna
-- sinun tarvitsee myös avata kaksi terminaalia ajaaksesi molempia sovelluksia
-- backend: ```cd backend/ && npm install```
-- backend käynnistetään komennolla ```node server.js```
-- frontend: ```cd frontend/application/ && npm install```
-- frontend käynnistetään komennolla ```npm start```
+# Ajaminen lokaalisti Dockerilla
+
+- ```docker-compose up```
 
 # Käytetyt teknologiat:
 - React + Redux (create-react-app) frontend
 - Node.js + Express.js REST API:na toimiva backend
 - MongoDB tietokanta pilvipalveluna (https://mlab.com/)
 - JSON Web Token autentikaatio (https://jwt.io/)
-- Heroku julkaisupalvelimena (https://www.heroku.com/)
 - Semantic UI React frontin ulkoasuun (https://github.com/Semantic-Org/Semantic-UI-React)

@@ -9,7 +9,7 @@ class Favorites extends Component {
     super();
     this.state = {
       favorites: [],
-      selectedCity: {name: ''} // FIX
+      selectedCity: {name: ''}
     };
     this.selectCity = this.selectCity.bind(this);
     this.remove = this.remove.bind(this);
@@ -18,10 +18,10 @@ class Favorites extends Component {
 
   selectCity(e) {
     const fields = e.target.innerText.split(', ');
-    const wantedObject = this.state.favorites.find((item) => {
+    const cityObject = this.props.favorites.find((item) => {
       return item.name === fields[0];
     });
-    this.setState({selectedCity: wantedObject});
+    this.setState({selectedCity: cityObject});
   }
 
 
@@ -36,28 +36,8 @@ class Favorites extends Component {
   }
 
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.favorites) {
-      if (Array.isArray(nextProps.favorites)) {
-        this.setState({
-          favorites: nextProps.favorites
-        });
-      } else if (typeof nextProps.favorites === 'string') {
-        // TODO FIX RETURN VALUE LATER, THIS IS DUMB
-        this.props.getFavorites(this.props.auth.user.name);
-      } else {
-        const newFavorites = this.state.favorites;
-        newFavorites.push(nextProps.favorites);
-        this.setState({
-          favorites: newFavorites
-        });
-      }
-    }
-  }
-
-
   render() {
-    const cities = this.state.favorites.map( (city) => {
+    const cities = this.props.favorites.map( (city) => {
       return (
         <List.Item key={city.id} onClick={this.selectCity} value={city.id}>
           <List.Content>
@@ -79,9 +59,13 @@ class Favorites extends Component {
           </div>
         </div>
         <div>
-          <List divided relaxed style={{overflow: 'auto', maxHeight: 600}}>
-            {cities}
-          </List>
+          {
+            this.props.favorites.length === 0 ?
+              <h2>Loading...</h2> :
+              <List divided relaxed style={{overflow: 'auto', maxHeight: 600}}>
+                {cities}
+              </List>
+          }
         </div>
       </div>
     );
